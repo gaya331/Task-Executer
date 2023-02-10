@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    {% load static %}
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+      body {
+        min-width: 800px;
+        background: #ff00cc;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #333399, #ff00cc);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        margin:0px;
+      }
+      .calculator-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+      .calculator-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px #ccc;
+      }
+      .form-group {
+        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      select,
+      input[type="text"] {
+        width: 200px;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 2px 2px 5px #ccc;
+        margin-bottom: 10px;
+      }
+      input[type="button"] {
+        background-color: green;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 2px 2px 5px #ccc;
+        margin-top: 20px;
+      }
+      .cards-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
+        font-family: arial;
+        float: left;
+        width: 45%;
+        margin: 1%;
+      } 
+      .title {
+        color: grey;
+        font-size: 18px;
+      }
+      button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: hsla(243, 86%, 69%, 0.922);
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
+      a {
+        text-decoration: none;
+        font-size: 22px;
+        color: rgb(188, 183, 220);
+      }
+      button:hover, a:hover {
+        opacity: 0.7;
+      }
+    </style>
+</head>
+<body>
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>Message:</strong> {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>  
+      </button>
+  </div>
+    {% endfor %}
+<!--<h2>READY TO LOGIN!</h2>-->
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">Master & Student Task Executer</a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">  </ul>
+        <form class="form-inline mt-2 mt-md-0">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+           <a style="text-decoration: none" href="/signout">SignOut</a></button>
+        </form>
+      </div> 
+    </nav>
+    <bR><BR><bR>
+    <div class="calculator-container">
+      <form class="calculator-form">
+        <div class="form-group">
+          <label>First Number:</label>
+          <select id="firstNumber">
+            <option value="Zero">Zero</option>
+            <option value="One">One</option>
+            <option value="Two">Two</option>
+            <option value="Three">Three</option>
+            <option value="Four">Four</option>
+            <option value="Five">Five</option>
+            <option value="Six">Six</option>
+            <option value="Seven">Seven</option>
+            <option value="Eight">Eight</option>
+            <option value="Nine">Nine</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Operator:</label>
+          <select id="operator">
+            <option value="Plus">Plus</option>
+            <option value="Minus">Minus</option>
+            <option value="Times">Times</option>
+            <option value="Divided_by">Divided By</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Second Number:</label>
+          <select id="secondNumber">
+            <option value="Zero">Zero</option>
+            <option value="One">One</option>
+            <option value="Two">Two</option>
+            <option value="Three">Three</option>
+            <option value="Four">Four</option>
+            <option value="Five">Five</option>
+            <option value="Six">Six</option>
+            <option value="Seven">Seven</option>
+            <option value="Eight">Eight</option>
+            <option value="Nine">Nine</option>
+          </select>
+        </div>
+        <input type="button" value="Calculate" onclick="calculateResult()"/>
+        <div class="form-group">
+         <label>Result:</label>
+         <input type="text" id="result" disabled />
+        </div>
+        <button id="view-activity-log-button">View Activity Log</button>
+      </div>
+    </form>
+     <br><br> 
+      <script>
+      document.getElementById("view-activity-log-button").addEventListener("click", (e) => {
+          e.preventDefault(); 
+          window.location.href = "{% url 'activity_log' %}";
+      });
+
+  function Zero(func) {
+    return func ? func(0) : 0;
+  }
+
+  function One(func) {
+    return func ? func(1) : 1;
+  }
+
+  function Two(func) {
+    return func ? func(2) : 2;
+  }
+
+  function Three(func) {
+    return func ? func(3) : 3;
+  }
+
+  function Four(func) {
+    return func ? func(4) : 4;
+  }
+
+  function Five(func) {
+    return func ? func(5) : 5;
+  }
+
+  function Six(func) {
+    return func ? func(6) : 6;
+  }
+
+  function Seven(func) {
+    return func ? func(7) : 7;
+  }
+
+  function Eight(func) {
+    return func ? func(8) : 8;
+  }
+
+  function Nine(func) {
+    return func ? func(9) : 9;
+  }
+
+   function Plus(b) {
+    return function(a) {
+      return a + b;
+    };
+  }
+
+  function Minus(b) {
+    return function(a) {
+      return a - b;
+    };
+  }
+
+  function Times(b) {
+    return function(a) {
+      return a * b;
+    };
+  }
+
+  function Divided_by(b) {
+    return function(a) {
+      return Math.floor(a / b);
+    };
+  }
+	
+  const arrValue = [];
+function calculateResult() {
+  let firstNumber = document.getElementById("firstNumber").value;
+  let secondNumber = document.getElementById("secondNumber").value;
+  let operator = document.getElementById("operator").value;
+  let result = document.getElementById("result");
+  let date = new Date().toLocaleString();
+
+ result.value = window[firstNumber](window[operator](window[secondNumber]()));
+ let res  = result.value;
+ arrValue.unshift({fn:firstNumber,sn:secondNumber,op:operator,res:res,date:date})
+ console.log(arrValue)
+ localStorage.setItem("activityvalues",JSON.stringify(arrValue))
+}
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+    {% else %}
+  <div class="cards-container">
+    <div class="card">
+      <img src="{% static 'nuser.png' %}" alt="" >
+      <h1>New User?</h1>
+      <p class="title">Click Below To </p>
+      <p>Create New Account</p>    
+      <button type="submit"><a style="text-decoration: none" href="/signup">SignUp</a></button>
+    </div>
+<br>
+    <div class="card" >
+      <img src="{% static 'vuser.png' %}" alt="" >
+      <h1>Exists User?</h1>
+      <p class="title">Click Below To </p>
+      <p>Signin</p> 
+      <button type="submit"><a style="text-decoration: none" href="/signin">SignIn</a></button>
+    </div>
+  </div>    
+    {% endif %}
+</body>
+</html>

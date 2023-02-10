@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% load static %}
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <title>Activity Log</title>
+  <style>
+   body {
+        min-width: 800px;
+        background: #ff00cc;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #333399, #ff00cc);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        margin:0px;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      
+     h1 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #a0cdc8;
+       }
+
+    .table .table-header{
+                background:#c9822cfb;
+                color:#d8dcde;
+                
+            }
+    .table .table-header .cell{
+                padding:15px;
+                text-align: center;
+            }
+    @media screen and (max-width: 640px){
+        .table .table-header .cell{
+            padding:20px 5px;
+                }}
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
+        font-family: arial;
+        float: left;
+        width: 45%;
+        margin: 1%;
+      }        
+      tr:nth-child(odd){
+          background-color: #ebf2f5b3;
+          text-align: center;
+      }     
+      tr:nth-child(even){
+          background-color: #dfe5e8a5;
+          text-align: center;
+      }     
+
+    </style>
+    </head>
+  <body>
+      <div>
+      <nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Activity Log</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">  </ul>
+          <form class="form-inline mt-2 mt-md-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+             <a style="text-decoration: none" href="/index">Back</a></button>
+             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              <a style="text-decoration: none" href="/signout">SignOut</a></button>
+          </form>
+        </div> 
+      </nav>
+    </div>
+      <bR><BR><bR>
+     
+      <div id="">
+        <table class="table">
+          <thead>
+            <tr class="table-header">
+              <th class="cell">Activity</th>
+              <th class="cell">FirstNumber</th>
+              <th class="cell">Opertaor</th>
+              <th class="cell">SecondNumber</th>
+              <th class="cell">Result</th>
+              <th class="cell">Date & Time</th>
+            </tr>
+          </thead>
+          <tbody id="tbody" >
+            
+          </tbody>
+     </table>
+      </div>
+    
+  <script>
+    let tablerow = document.getElementById('tbody');
+    const getVal = localStorage.getItem("activityvalues");
+
+    const actualData = JSON.parse(getVal);
+    tablerow.innerHTML = "";
+    for (let x in actualData) {
+      document.getElementById('tbody').innerHTML += `
+        <tr>
+           <td>${parseInt(x)+1}</td>
+           <td>${actualData[x].fn}</td>
+           <td>${actualData[x].op} </td>
+           <td>${actualData[x].sn}</td>
+           <td>${actualData[x].res}</td>
+           <td>${actualData[x].date}</td>
+       </tr> 
+       `
+    }
+  </script>
