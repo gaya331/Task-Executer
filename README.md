@@ -12,7 +12,10 @@ For Example
 
 Download/Task-Executer/manage.py
 
+#Before execute make sure that in your desktop "python" downloaded and initialized properly 
+
 Now Follow the Commands to setup the Project
+
 ------------------------------------------------------------------------------------------------------------------
 
 
