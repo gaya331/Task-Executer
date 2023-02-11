@@ -2,6 +2,16 @@
 Welcome to Task-Executer
 ------------------------------------------------------------------------------------------------------------------
 
+Project Description:
+           I build a Master and Student task executor as a web application by used the Python and Django framework for UI I used HTML, CSS, Bootstrap and JavaScripts.
+
+Application Flow:
+
+# Create an application with two user roles: Master and Students
+# Both Student and Master can signup and login and logout.
+# Master can ask the Student(input) and get the value(output)
+# Students should be able to view the list of activities(calculations) sought by the master in the activity log section.
+
 For Further Installation
 
 After Downloaded the Task-Executer Folder From Github
@@ -14,7 +24,7 @@ Download/Task-Executer/manage.py
 
 #Before execute make sure that in your desktop "python" downloaded and initialized properly 
 
-Now Follow the Commands to setup the Project
+Now follow the commands to setup the project
 
 ------------------------------------------------------------------------------------------------------------------
 
